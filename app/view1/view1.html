@@ -1,0 +1,96 @@
+
+<md-content>
+
+<div layout="row">
+
+    <div layout="column" flex="35">
+
+        <!--<div layout="row">-->
+        <md-toolbar layout="row" class="p10">
+
+            <md-checkbox ng-model="isDescSort" aria-label="Sort desc" class="mt17"">
+                <span>Сортировать в обратном порядке</span>
+            </md-checkbox>
+
+            <div>
+                <md-input-container class="md-block">
+                    <label>Поиск..</label>
+                    <input ng-model="searchText">
+                </md-input-container>
+            </div>
+
+        </md-toolbar>
+        <!--</div>-->
+
+        <md-list dnd-list="list1" class="h100">
+
+            <md-list-item ng-repeat="item in list1 | filter:searchText | sortDirection:isDescSort"
+                 ng-click="applySelected(item)"
+                 dnd-draggable="item"
+                 dnd-moved="moveFromList(item, list1)"
+                 dnd-effect-allowed="move"
+                 dnd-selected="models.selected = item"
+                 ng-class="{'selected': models.selected === item}">
+                <p>{{::item.name}}</p>
+                <flags-icons flags="::item.flags"></flags-icons>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+
+        </md-list>
+
+    </div>
+
+    <div flex="30" class="center">
+
+        <!--<div>-->
+            <h2>Name: {{selected.name}}</h2>
+
+            <h2>Flags: <flags-icons flags="selected.flags"></flags-icons></h2>
+        <!--</div>-->
+
+    </div>
+
+    <div flex="35">
+
+        <!--<div layout="row">-->
+        <md-toolbar class="h114 p10" layout="row">
+
+            <h4>
+                Отбор по флагу:
+                <flags-icons flags="availableFlags" list="list2"></flags-icons>
+
+                <span flex></span>
+
+            </h4>
+
+            <span flex></span>
+
+            <md-button ng-click="searchFlag = undefined"">Сбросить</md-button>
+
+        </md-toolbar>
+        <!--</div>-->
+
+        <md-list dnd-list="list2" class="h100">
+
+            <md-list-item ng-repeat="item in list2 | flagFilter:searchFlag"
+                 ng-click="applySelected(item)"
+                 dnd-draggable="item"
+                 dnd-moved="moveFromList(item, list2)"
+                 dnd-effect-allowed="move"
+                 dnd-selected="models.selected = item"
+                 ng-class="{'selected': models.selected === item}">
+                <p>{{::item.name}}</p>
+                <flags-icons flags="::item.flags" search-flag="searchFlag"></flags-icons>
+                <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+
+        </md-list>
+
+    </div>
+
+</div>
+
+    </md-content>
+
+
+
