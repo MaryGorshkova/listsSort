@@ -8,8 +8,7 @@ angular.module('myApp', [
   'ngAria',
   'ngMaterial',
     'dndLists',
-  'myApp.view1',
-  'myApp.view2'
+  'myApp.view1'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');

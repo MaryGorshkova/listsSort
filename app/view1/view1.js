@@ -16,6 +16,17 @@ angular.module('myApp.view1', ['ngRoute'])
 
         $scope.availableFlags = [ "flower", "star", "mood", "flash" ];
 
+        $scope.$on('aplyFilterFlag', function (event, data) {
+            $scope.searchFlag = data;
+        });
+
+
+        $scope.moveFromList = function (item, list) {
+            var trueIndex = list.indexOf(item);
+            list.splice(trueIndex, 1);
+        };
+
+        //нагенерить списки
         var flagsGenerator = function () {
             var arr = [];
 
@@ -28,18 +39,7 @@ angular.module('myApp.view1', ['ngRoute'])
             return arr;
         };
 
-        $scope.$on('aplyFilterFlag', function (event, data) {
-            $scope.searchFlag = data;
-        });
-
-
-        $scope.moveFromList = function (item, list) {
-            var trueIndex = list.indexOf(item);
-            list.splice(trueIndex, 1);
-        };
-
-        //нагенерить списки
-      for (var i = 0; i<100; i++){
+        for (var i = 0; i<100; i++){
         $scope.list1.push({
           name: 'name' + i,
           flags: flagsGenerator()
@@ -54,10 +54,5 @@ angular.module('myApp.view1', ['ngRoute'])
       $scope.applySelected = function (item) {
         $scope.selected = item;
       };
-
-        $scope.$watch('list1', function (newValue, oldValue) {
-            //console.log($scope.list1);
-        }, true);
-
 
     }]);
